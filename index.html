@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi 2 em gệ phòng 402 🍫</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CẤU HÌNH CHUNG --- */
+        body {
+            background-color: #f7e7ce; /* Nền màu kem bơ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* --- HIỆU ỨNG TRÁI TIM BAY NỀN --- */
+        .heart-bg {
+            position: fixed;
+            color: #ffc107; /* Trái tim màu Vàng Gold/Caramel */
+            font-size: 20px;
+            user-select: none;
+            top: -10vh;
+            z-index: -1;
+            animation-name: float-up;
+            animation-timing-function: linear;
+            opacity: 0;
+            text-shadow: 0 2px 5px rgba(93, 64, 55, 0.2);
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* --- PHONG BAO LÌ XÌ/THƯ --- */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .envelope-wrapper:hover { transform: scale(1.02); }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background-color: #5d4037; /* Nâu Socola chủ đạo */
+            box-shadow: 0 10px 30px rgba(62, 39, 35, 0.3); /* Bóng đổ màu nâu tối */
+            border-radius: 5px;
+        }
+
+        /* Nắp trên (Flap) */
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            z-index: 5;
+            /* Nắp màu nâu tối hơn một chút để tạo khối */
+            border-top: 140px solid #4e342e; 
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            transform-origin: top;
+            transition: transform 0.5s ease-in-out 0.2s;
+        }
+
+        /* Thân túi (Pocket) */
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 10;
+            bottom: 0; left: 0;
+            width: 0; height: 0;
+            /* Các mảng màu nâu socola ghép lại */
+            border-bottom: 140px solid #6d4c41;
+            border-left: 160px solid #5d4037;
+            border-right: 160px solid #5d4037;
+            border-top: 140px solid transparent;
+            pointer-events: none;
+        }
+
+        /* --- LÁ THƯ --- */
+        .letter {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 290px;
+            height: auto;
+            max-height: 180px;
+            background: #fff8e1; /* Màu giấy nến ngả vàng ấm áp */
+            text-align: center;
+            transition: all 0.6s ease-in-out;
+            z-index: 3;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            box-shadow: 0 -5px 15px rgba(62, 39, 35, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .letter-content {
+            opacity: 0;
+            transition: opacity 0.4s 0.6s;
+            font-family: 'Dancing Script', cursive;
+            color: #3e2723; /* Chữ màu nâu đen */
+            width: 100%;
+        }
+
+        /* Tiêu đề màu Vàng Gold */
+        .letter-content h2 { margin: 0 0 5px 0; font-size: 20px; color: #ffc107; text-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+        .letter-content p { font-size: 14px; margin: 5px 0; line-height: 1.4; }
+        .signature { display: block; margin-top: 10px; font-weight: bold; }
+        .ps-text { font-family: 'Poppins', sans-serif; font-size: 10px; color: #6d4c41; margin-top: 10px; font-style: italic; border-top: 1px dashed #bcaaa4; padding-top: 5px; }
+        
+        /* Câu hỏi màu Vàng Gold */
+        .question { margin-top: 10px; font-size: 16px; font-weight: bold; color: #ffc107; }
+        
+        .buttons { margin-top: 15px; display: flex; gap: 10px; justify-content: center; width: 100%; }
+
+        /* --- STYLE CHO NÚT BẤM (Theme Chocolate) --- */
+        button { 
+            padding: 10px 25px; 
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            font-family: 'Poppins', sans-serif; 
+            font-weight: 600; 
+            font-size: 14px; 
+            white-space: nowrap;
+        }
+        
+        /* Nút YES màu vàng gold */
+        #yesBtn { 
+            background-color: #ffc107; 
+            color: #3e2723; /* Chữ nâu trên nền vàng */
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
+        }
+        
+        /* Nút NO viền vàng gold */
+        #noBtn { 
+            background-color: #fff8e1; /* Cùng màu giấy */
+            color: #ffc107; 
+            border: 2px solid #ffc107;
+            z-index: 9999; 
+            transition: 0.2s ease;
+        }
+
+        /* --- TRẠNG THÁI MỞ (OPEN) --- */
+        .envelope.open::before {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope.open .letter {
+            z-index: 99; 
+            bottom: 70px;
+            transform: translateX(-50%);
+            max-height: 800px; 
+            overflow: visible;
+            box-shadow: 0 15px 40px rgba(62, 39, 35, 0.3);
+        }
+
+        .envelope.open .letter-content { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" onclick="openLetter()">
+        <div class="envelope">
+            <div class="letter">
+                <div class="letter-content">
+                    <h2>Bảo bối à,</h2>
+                    <p>
+                        Valentine này, anh không cần socola hay quà cáp. <br>
+						Điều duy nhất anh muốn là trái tim của em. Anh muốn chạm vào tim em!<br>
+						Cảm ơn em vì đã xuất hiện và làm thế giới của anh rực rỡ hơn.<br>
+						Rồi anh cũng sẽ có được trái tim của 2 em thôi! Moah
+                    </p>
+                    <span class="signature">Iu em,<br>Tran Trong Nguyen</span>
+
+                    <div class="ps-text">
+                        (P.S. Nút "No" bị hư rồi, đừng cố chấp làm gì nhé cục cưng! ^^)
+                    </div>
+                    
+                    <div class="question">Will you be my Valentine?</div>
+                    
+                    <div class="buttons">
+                        <button id="yesBtn" onclick="acceptLove(event)">Yes!</button>
+                        <button id="noBtn" onmouseover="moveButton(this)" ontouchstart="moveButton(this)">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // 1. MỞ THƯ
+        function openLetter() {
+            const envelope = document.querySelector('.envelope');
+            if (!envelope.classList.contains('open')) {
+                envelope.classList.add('open');
+            }
+        }
+
+        // 2. NÚT NO CHẠY TRỐN
+        function moveButton(btn) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            if (btn.parentElement.className === 'buttons') {
+                document.body.appendChild(btn);
+                btn.style.position = 'fixed';
+            }
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const newX = Math.random() * (width - 100);
+            const newY = Math.random() * (height - 50);
+            btn.style.left = newX + 'px';
+            btn.style.top = newY + 'px';
+        }
+
+        // 3. ĐỒNG Ý & BẮN PHÁO GIẤY (Màu vàng/nâu)
+        function acceptLove(event) {
+            event.stopPropagation();
+            const duration = 3 * 1000;
+            const end = Date.now() + duration;
+            (function frame() {
+                // Đổi màu pháo giấy sang tông Vàng/Cam/Trắng cho hợp theme
+                confetti({
+                    particleCount: 5, angle: 60, spread: 55, origin: { x: 0 },
+                    colors: ['#ffc107', '#ff9800', '#ffffff', '#5d4037']
+                });
+                confetti({
+                    particleCount: 5, angle: 120, spread: 55, origin: { x: 1 },
+                    colors: ['#ffc107', '#ff9800', '#ffffff', '#5d4037']
+                });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+            setTimeout(() => { alert("Yay! ❤️ You're sweet like chocolate!"); }, 500);
+        }
+
+        // 4. TẠO TRÁI TIM BAY NỀN
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤️'; // Hoặc dùng icon cục socola 🍫 nếu thích
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
